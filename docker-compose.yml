@@ -1,8 +1,6 @@
 services:
   app:
     build: .
-    ports:
-      - "3001:3000"
     environment:
       - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@db:5432/${POSTGRES_DB:-notesdb}
       - PORT=3000
@@ -10,6 +8,14 @@ services:
       db:
         condition: service_healthy
     restart: unless-stopped
+    networks:
+      - default
+      - dokploy-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.notesapp.rule=Host(`notesapp-app-20w2j4-d872cb-182-3-42-67.sslip.io`)"
+      - "traefik.http.routers.notesapp.entrypoints=web"
+      - "traefik.http.services.notesapp.loadbalancer.server.port=3000"
 
   db:
     image: postgres:16-alpine
@@ -28,3 +34,8 @@ services:
 
 volumes:
   postgres_data:
+
+networks:
+  dokploy-network:
+    external: true
+  default:
