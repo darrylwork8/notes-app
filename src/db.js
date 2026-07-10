@@ -1,0 +1,21 @@
+require('dotenv').config();
+const { Pool } = require('pg');
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+});
+
+async function initDb() {
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS notes (
+      id        SERIAL PRIMARY KEY,
+      title     VARCHAR(255) NOT NULL,
+      content   TEXT,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+  console.log('Database ready');
+}
+
+module.exports = { pool, initDb };

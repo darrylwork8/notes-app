@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__dokploy-mcp__project-all",
+      "Bash(mkdir -p /home/darryl/Documents/Magang/Dockploy/Project_1/src/routes)",
+      "Bash(mkdir -p /home/darryl/Documents/Magang/Dockploy/Project_1/public)",
+      "Bash(npm install *)",
+      "Bash(node -e \"require\\('./src/routes/notes'\\); require\\('./src/db'\\); require\\('./src/index'\\); process.exit\\(0\\)\")",
+      "Bash(git -C /home/darryl/Documents/Magang/Dockploy/Project_1 status)",
+      "Bash(git config *)",
+      "Bash(gh auth *)",
+      "Bash(git init *)",
+      "Bash(git add *)"
+    ]
+  }
+}
